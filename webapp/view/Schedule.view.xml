@@ -1,0 +1,28 @@
+<mvc:View
+    controllerName="matchschedule.controller.Schedule"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:layout="sap.ui.layout.cssgrid"
+    xmlns="sap.m">
+    <Page id="schedulePage" title="{i18n>scheduleViewTitle}" class="msSchedulePage">
+        <content>
+            <VBox class="msScheduleInner">
+                <VBox id="scheduleScroll" class="msScroll">
+                    <layout:CSSGrid
+                        id="scheduleGrid"
+                        class="msGrid"
+                        gridTemplateColumns="{grid>/templateColumns}"
+                        gridTemplateRows="{grid>/templateRows}"
+                        gridGap="1px"
+                        items="{ path: 'grid>/cells', factory: '.cellFactory' }" />
+                </VBox>
+                <FlexBox
+                    id="groupsRow"
+                    class="msGroupsRow"
+                    renderType="Bare"
+                    wrap="Wrap"
+                    items="{ path: 'grid>/groups', factory: '.groupFactory' }" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

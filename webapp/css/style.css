@@ -1,0 +1,209 @@
+/* ============================================================
+   Match schedule screen
+   ============================================================ */
+
+.msSchedulePage .sapMPageBody {
+    background-color: #eef2f6;
+}
+
+.msScheduleInner {
+    padding: 1rem;
+    gap: 1rem;
+}
+
+/* ---- Scroll viewport for the wide matrix ------------------- */
+/* The CSSGrid is the direct child of this flex box, so horizontal
+   `position: sticky` on the grid's own children resolves against it.
+   `align-self: flex-start` + `width: auto` keep the box at the grid's
+   intrinsic width (no dead space on wide screens); `max-width: 100%`
+   makes it scroll horizontally once the viewport is narrower than the grid. */
+.msScroll {
+    align-self: flex-start;
+    width: auto;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    align-items: flex-start;
+    border: 1px solid #c9d2db;
+    background-color: #c9d2db;
+}
+
+/* ---- Grid + generic cell --------------------------------- */
+.msGrid {
+    align-self: flex-start; /* intrinsic width from the fixed column tracks */
+    background-color: #c9d2db; /* shows through the 1px gap as hairlines */
+}
+
+.msRoundHeader,
+.msDateHeader,
+.msCornerCell,
+.msVenueCell,
+.msPlaceholder {
+    box-sizing: border-box;
+}
+
+/* ---- "ROUND ONE" bar ------------------------------------- */
+.msRoundHeader {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: #ffffff;
+    background-color: #2f74c0;
+}
+.msRoundHeader .sapMText {
+    color: inherit;
+}
+
+/* ---- Date header row ------------------------------------- */
+.msDateHeader {
+    position: sticky;
+    top: 32px; /* == first grid row height */
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    text-align: center;
+    line-height: 1.1;
+    background-color: #dbe3ea;
+}
+.msDateDow {
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+.msDateMd {
+    font-size: 0.75rem;
+    color: #5a6b7b;
+}
+
+/* ---- Corner (row 2 / col 1) ----------------------------- */
+.msCornerCell {
+    position: sticky;
+    left: 0;
+    top: 32px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: #5a6b7b;
+    background-color: #dbe3ea;
+}
+
+/* ---- Venue column -------------------------------------- */
+.msVenueCell {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 10px;
+    background-color: #dbe3ea;
+    border-right: 1px solid #c9d2db;
+}
+.msVenueName {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    line-height: 1.15;
+}
+.msVenueSub {
+    font-size: 0.6875rem;
+    color: #5a6b7b;
+    line-height: 1.15;
+}
+
+/* ---- Match tile --------------------------------------- */
+.msTile {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 5px 8px;
+    overflow: hidden;
+    color: #1c2b3a;
+}
+.msTileNo {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    opacity: 0.7;
+    white-space: nowrap;
+    color: inherit;
+}
+.msTileMatchup {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+.msTileTime {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: inherit;
+}
+
+/* ---- Empty cell -------------------------------------- */
+.msPlaceholder {
+    background-color: #edf1f4;
+}
+
+/* ============================================================
+   Shared group palette — used by both the tiles and the
+   group-table headers below.
+   ============================================================ */
+.msGroupA { background-color: #cfe6ff; }
+.msGroupB { background-color: #b4b9be; }
+.msGroupC { background-color: #a9d6f5; }
+.msGroupD { background-color: #6aa9de; color: #ffffff; }
+.msGroupE { background-color: #7cc0ec; }
+.msGroupF { background-color: #2f74c0; color: #ffffff; }
+.msGroupDefault { background-color: #edf1f4; }
+
+.msTile.msGroupD .sapMText,
+.msTile.msGroupF .sapMText {
+    color: #ffffff;
+}
+
+/* ============================================================
+   Groups table
+   ============================================================ */
+.msGroupsRow {
+    gap: 1px;
+    background-color: #c9d2db;
+    border: 1px solid #c9d2db;
+}
+.msGroupCol {
+    flex: 1 1 0;
+    min-width: 9rem;
+    background-color: #ffffff;
+}
+.msGroupHeader {
+    display: block;
+    padding: 8px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+.msGroupHeader.msGroupD,
+.msGroupHeader.msGroupF {
+    color: #ffffff;
+}
+.msGroupTeam {
+    display: block;
+    padding: 6px 12px;
+    font-size: 0.8125rem;
+    border-top: 1px solid #e3e9ee;
+}

@@ -1,0 +1,47 @@
+_schema-version: "3.3"
+ID: match-schedule
+description: Match Schedule application.
+version: 0.0.1
+
+parameters:
+  enable-parallel-deployments: true
+
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm install
+
+modules:
+  - name: match-schedule-app-deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: match-schedule-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: match-schedule
+          artifacts:
+            - match-schedule.zip
+          target-path: resources/
+
+  - name: match-schedule
+    type: html5
+    path: .
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+
+resources:
+  - name: match-schedule-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host

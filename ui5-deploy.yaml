@@ -1,0 +1,13 @@
+specVersion: "3.1"
+metadata:
+  name: match-schedule
+type: application
+builder:
+  customTasks:
+    - name: ui5-task-zipper
+      afterTask: generateCachebusterInfo
+      configuration:
+        archiveName: match-schedule
+        relativePaths: true
+        additionalFiles:
+          - xs-app.json
