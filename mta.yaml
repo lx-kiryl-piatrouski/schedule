@@ -1,5 +1,5 @@
 _schema-version: "3.3"
-ID: match-schedule
+ID: matchschedule
 description: Match Schedule application.
 version: 0.0.1
 
@@ -13,22 +13,22 @@ build-parameters:
         - npm install
 
 modules:
-  - name: match-schedule-app-deployer
+  - name: matchschedule-app-deployer
     type: com.sap.application.content
     path: .
     requires:
-      - name: match-schedule-html5-repo-host
+      - name: matchschedule-html5-repo-host
         parameters:
           content-target: true
     build-parameters:
       build-result: resources
       requires:
-        - name: match-schedule
-          artifacts:
-            - match-schedule.zip
+        - artifacts:
+            - matchschedule.zip
+          name: matchschedule
           target-path: resources/
 
-  - name: match-schedule
+  - name: matchschedule
     type: html5
     path: .
     build-parameters:
@@ -39,9 +39,49 @@ modules:
         - npm run build:cf
       supported-platforms: []
 
+  - name: matchschedule-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: matchschedule-destination-service
+        parameters:
+          content-target: true
+      - name: matchschedule-html5-repo-host
+        parameters:
+          service-key:
+            name: matchschedule-html5-repo-host-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: matchschedule_repo_host
+              ServiceInstanceName: matchschedule-html5-repo-host
+              ServiceKeyName: matchschedule-html5-repo-host-key
+              sap.cloud.service: match.schedule
+              HTML5.DynamicDestination: true
+          existing_destinations_policy: update
+    build-parameters:
+      no-source: true
+
 resources:
-  - name: match-schedule-html5-repo-host
+  - name: matchschedule-html5-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
       service-plan: app-host
+
+  - name: matchschedule-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+      service: destination
+      service-plan: lite
